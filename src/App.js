@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import {all , active , completed} from './Tasks';
+import {list} from './Tasks';
 import Table from './Table.js';
 
 
@@ -9,11 +9,27 @@ class App extends React.Component{
     constructor(props){
       super(props);
       this.state = {
-        list : active ,
-        all,
-        active , 
-        completed ,
+        list : list,
+        value : '',
       }
+      this.handleChange = this.handleChange.bind(this);
+      this.handleClick = this.handleClick.bind(this);
+      
+    }
+
+    handleChange(event){
+      this.setState({value : event.target.value})
+    }
+
+    handleClick(){
+      const curr = {
+        title : this.state.value,
+        status : "pending"
+      }
+      this.setState({list : [...this.state.list , curr]});
+      this.setState({value : ''});
+      
+      
     }
   
     render(){
@@ -28,8 +44,12 @@ class App extends React.Component{
           </div>
           <div class="container">
             <div class="row"> 
-              <input type="text" className="ten columns"></input>
-              <button type="submit" className = "button-primary two columns">Add</button>
+              <input type="text" className="ten columns"
+                 onChange = {this.handleChange}
+                 ref = {this.myRef}
+                 value = {this.state.value}
+              ></input>
+              <button type="submit" className = "button-primary two columns" onClick={this.handleClick}>Add</button>
             </div>
         </div>
         <Table list = {this.state.list}/>
