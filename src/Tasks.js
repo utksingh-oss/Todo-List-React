@@ -2,14 +2,14 @@
 export const list = [
     {
         title : "Have to do something",
-        status : "pending",
+        pending : true,
     },
     {
         title : "Have to do something",
-        status : "pending",
+        pending : true,
     },
     {
         title : "Have to do something",
-        status : "pending",
+        pending : true,
     }
 ]

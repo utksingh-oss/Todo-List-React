@@ -1,35 +1,69 @@
-import React , {useState} from 'react';
+import React from 'react';
 
-const Table = ({list}) =>{
-    const [isChecked , setIsChecked] = useState(
-        new Array(list.length).fill(false)
-    );
-
-    const handleOnChange = (position) =>{
-        const updatedCheckedState = isChecked.map((item , index)=>
-            index === position ? !item : item
-        );
-        setIsChecked(updatedCheckedState)
+class Table extends React.Component{
+  constructor(props){
+    super(props);
+    this.state = {
+      list : this.props.list,
+      choice : this.props.choice,
+      isChecked : new Array(this.props.list.length).fill(false)
     }
+    this.handleOnChange = this.handleOnChange.bind(this);
+  }
 
+  handleOnChange(position){
+      this.props.list[position].pending = !this.props.list[position].pending ;
+
+      const updatedCheckedState = this.state.isChecked;
+      updatedCheckedState[position] = !updatedCheckedState[position];
+      this.setState({isChecked : updatedCheckedState});
+  }
+
+  render(){
     return(
-        <tbody style={{textAlign : "center"}}>
-          {
-            list.map( (item , index) =>{
-              return(<tr>
+      <tbody style={{textAlign : "center"}}>
+        {
+          this.props.list.map( (item , index) =>{
+            if((this.props.choice === 'active')&&(item.pending)){
+            return(<tr>
+                <td><input 
+                  type="checkbox"
+                  value = {item.pending}
+                  checked = {this.state.isChecked[index]}
+                  onChange = {() => this.handleOnChange(index)}
+                />
+                </td>
+                <td style = {{columnWidth : "700px"}}>{item.title}</td>
+            </tr>)}else if(this.props.choice === 'all'){
+                return(<tr>
                   <td><input 
                     type="checkbox"
-                    value = "status"
-                    checked = {isChecked[index]}
-                    onChange = {() => handleOnChange(index)}
+                    value = {item.pending}
+                    checked = {this.state.isChecked[index]}
+                    onChange = {() => this.handleOnChange(index)}
                   />
                   </td>
                   <td style = {{columnWidth : "700px"}}>{item.title}</td>
               </tr>)
+              }else if(this.props.choice === 'completed' && (!item.pending)){
+                return(<tr>
+                  <td><input 
+                    type="checkbox"
+                    value = "status"
+                    checked = {this.state.isChecked[index]}
+                    onChange = {() => this.handleOnChange(index)}
+                  />
+                  </td>
+                  <td style = {{columnWidth : "700px"}}>{item.title}</td>
+              </tr>)
+              }else{
+                return null;
+              }
             })
-          }
-        </tbody>
-    );
+        }
+      </tbody>
+  );
+  }
 }
 
 export default Table;

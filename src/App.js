@@ -11,6 +11,7 @@ class App extends React.Component{
       this.state = {
         list : list,
         value : '',
+        choice : 'all'
       }
       this.handleChange = this.handleChange.bind(this);
       this.handleClick = this.handleClick.bind(this);
@@ -24,12 +25,10 @@ class App extends React.Component{
     handleClick(){
       const curr = {
         title : this.state.value,
-        status : "pending"
+        pending : true,
       }
       this.setState({list : [...this.state.list , curr]});
       this.setState({value : ''});
-      
-      
     }
   
     render(){
@@ -37,9 +36,9 @@ class App extends React.Component{
         <div className="App" style={{width : "1000px" , margin : "10px auto" ,textAlign : "center"}}>
           <h1>#todo</h1>
           <div className="navigation">
-            <button >All</button>
-            <button onClick={()=>console.log("Hello There!!")}>Active</button>
-            <button href="#">Completed</button>
+            <button onClick={()=>this.setState({choice : 'all'})}>All</button>
+            <button onClick={()=>this.setState({choice : 'active'})}>Active</button>
+            <button onClick={()=>this.setState({choice : 'completed'})}>Completed</button>
             <hr></hr>
           </div>
           <div class="container">
@@ -52,7 +51,7 @@ class App extends React.Component{
               <button type="submit" className = "button-primary two columns" onClick={this.handleClick}>Add</button>
             </div>
         </div>
-        <Table list = {this.state.list}/>
+        <Table list = {this.state.list} choice = {this.state.choice}/>
       </div>
       );
     }
