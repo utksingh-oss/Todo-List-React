@@ -2,3 +2,11 @@
     margin : 0 10px;
 }
 
+.true{
+    text-decoration: line-through;
+}
+
+.active{
+    background-color : #916BBF;
+    color : white;
+}

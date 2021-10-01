@@ -36,9 +36,9 @@ class App extends React.Component{
         <div className="App" style={{width : "1000px" , margin : "10px auto" ,textAlign : "center"}}>
           <h1>#todo</h1>
           <div className="navigation">
-            <button onClick={()=>this.setState({choice : 'all'})}>All</button>
-            <button onClick={()=>this.setState({choice : 'active'})}>Active</button>
-            <button onClick={()=>this.setState({choice : 'completed'})}>Completed</button>
+            <button onClick={()=>this.setState({choice : 'all'})} className={this.state.choice === 'all'?"active" : null}>All</button>
+            <button onClick={()=>this.setState({choice : 'active'})} className={this.state.choice === 'active'?"active" : null}>Active</button>
+            <button onClick={()=>this.setState({choice : 'completed'})} className={this.state.choice === 'completed'?"active" : null}>Completed</button>
             <hr></hr>
           </div>
           <div class="container">

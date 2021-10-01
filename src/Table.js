@@ -1,4 +1,5 @@
 import React from 'react';
+import './App.css';
 
 class Table extends React.Component{
   constructor(props){
@@ -33,7 +34,7 @@ class Table extends React.Component{
                   onChange = {() => this.handleOnChange(index)}
                 />
                 </td>
-                <td style = {{columnWidth : "700px"}}>{item.title}</td>
+                <td style = {{columnWidth : "700px" , textDecorationLine : item.pending ? "none" : "line-through"}}>{item.title}</td>
             </tr>)}else if(this.props.choice === 'all'){
                 return(<tr>
                   <td><input 
@@ -43,7 +44,7 @@ class Table extends React.Component{
                     onChange = {() => this.handleOnChange(index)}
                   />
                   </td>
-                  <td style = {{columnWidth : "700px"}}>{item.title}</td>
+                  <td style = {{columnWidth : "700px" , textDecorationLine : item.pending ? "none" : "line-through"}}>{item.title}</td>
               </tr>)
               }else if(this.props.choice === 'completed' && (!item.pending)){
                 return(<tr>
@@ -54,7 +55,7 @@ class Table extends React.Component{
                     onChange = {() => this.handleOnChange(index)}
                   />
                   </td>
-                  <td style = {{columnWidth : "700px"}}>{item.title}</td>
+                  <td style = {{columnWidth : "700px" ,textDecorationLine : item.pending ? "none" : "line-through"}}>{item.title}</td>
               </tr>)
               }else{
                 return null;
