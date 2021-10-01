@@ -15,11 +15,16 @@ class App extends React.Component{
       }
       this.handleChange = this.handleChange.bind(this);
       this.handleClick = this.handleClick.bind(this);
-      
+      this.prevent = this.prevent.bind(this);
+     
     }
 
     handleChange(event){
       this.setState({value : event.target.value})
+    }
+    
+    prevent(event){
+      event.preventDefault();
     }
 
     handleClick(){
@@ -30,7 +35,7 @@ class App extends React.Component{
       this.setState({list : [...this.state.list , curr]});
       this.setState({value : ''});
     }
-  
+
     render(){
       return (
         <div className="App" style={{width : "1000px" , margin : "10px auto" ,textAlign : "center"}}>
@@ -41,16 +46,16 @@ class App extends React.Component{
             <button onClick={()=>this.setState({choice : 'completed'})} className={this.state.choice === 'completed'?"active" : null}>Completed</button>
             <hr></hr>
           </div>
-          <div class="container">
+          <form class="container" onSubmit = {this.prevent}>
             <div class="row"> 
               <input type="text" className="ten columns"
                  onChange = {this.handleChange}
                  ref = {this.myRef}
                  value = {this.state.value}
               ></input>
-              <button type="submit" className = "button-primary two columns" onClick={this.handleClick}>Add</button>
+              <button type="submit" className = "button-primary two columns" onClick={this.handleClick} onSubmit={this.handleClick}>Add</button>
             </div>
-        </div>
+        </form>
         <Table list = {this.state.list} choice = {this.state.choice}/>
       </div>
       );
